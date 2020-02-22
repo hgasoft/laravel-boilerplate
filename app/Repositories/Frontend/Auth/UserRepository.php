@@ -2,17 +2,17 @@
 
 namespace App\Repositories\Frontend\Auth;
 
-use App\Models\Auth\User;
-use Illuminate\Http\UploadedFile;
-use App\Models\Auth\SocialAccount;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserProviderRegistered;
+use App\Exceptions\GeneralException;
+use App\Models\Auth\SocialAccount;
+use App\Models\Auth\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use App\Repositories\BaseRepository;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class UserRepository.
@@ -266,7 +266,7 @@ class UserRepository extends BaseRepository
             // Get users first name and last name from their full name
             $nameParts = $this->getNameParts($data->getName());
 
-            $user = parent::create([
+            $user = $this->model::create([
                 'first_name' => $nameParts['first_name'],
                 'last_name' => $nameParts['last_name'],
                 'email' => $user_email,
